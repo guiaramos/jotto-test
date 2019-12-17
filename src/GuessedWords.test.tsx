@@ -3,6 +3,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import GuessedWords from './GuessedWords';
 import { IPropsGuessedWords } from './interfaces';
 import { findByTestAttr } from './test/testUtils';
+import { wrap } from 'module';
 
 const defaultProps = {
   guessedWords: [{ guessedWord: 'train', letterMatchCount: 3 }]
@@ -34,4 +35,28 @@ describe('if there are no words guessed', () => {
     expect(instructions.text().length).not.toBe(0);
   });
 });
-describe('if there are words guessed', () => {});
+describe('if there are words guessed', () => {
+  const guessedWordsProps: IPropsGuessedWords = {
+    guessedWords: [
+      { guessedWord: 'train', letterMatchCount: 3 },
+      { guessedWord: 'agile', letterMatchCount: 1 },
+      { guessedWord: 'party', letterMatchCount: 5 }
+    ]
+  };
+  let wrapper: ShallowWrapper;
+  beforeEach(() => {
+    wrapper = setup(guessedWordsProps);
+  });
+  test('renders without error', () => {
+    const component = findByTestAttr(wrapper, 'component-guessed-words');
+    expect(component.length).toBe(1);
+  });
+  test('renders "guessed words" section', () => {
+    const guessedWordsNode = findByTestAttr(wrapper, 'guessed-words');
+    expect(guessedWordsNode.length).toBe(1);
+  });
+  test('correct number of guessed words', () => {
+    const guessedWordNode = findByTestAttr(wrapper, 'guessed-word');
+    expect(guessedWordNode.length).toBe(guessedWordsProps.guessedWords.length);
+  });
+});
