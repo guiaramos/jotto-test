@@ -5,7 +5,6 @@ import Enzyme from 'enzyme';
  * @param val - Value of data-test attribute for search
  * @returns {ShallowWrapper}
  */
-
 export const findByTestAttr = (
   wrapper: Enzyme.ShallowWrapper<
     any,
