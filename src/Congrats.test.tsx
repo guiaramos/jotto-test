@@ -2,16 +2,17 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Congrats from './Congrats';
 import { findByTestAttr } from './test/testUtils';
+import { IPropsCongrats } from './interfaces';
 
 const defaultProps = { success: false };
 
 /**
  * Factory function to create a ShallowWrapper for the Congrats components
  * @function setup
- * @param {object} props - Component props specific to this setup
+ * @param {IPropsCongrats} props - Component props specific to this setup
  * @returns {ShallowWrapper}
  */
-const setup = (props: { success: boolean }) => {
+const setup = (props: IPropsCongrats) => {
   const setupProps = { ...defaultProps, ...props };
   return shallow(<Congrats {...setupProps} />);
 };
